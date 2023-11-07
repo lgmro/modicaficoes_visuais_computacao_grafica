@@ -4,10 +4,13 @@ from tkinter import filedialog
 from tkinter import simpledialog
 
 class HomeLayout:
-    def __init__(self):
+    def __init__(self, rotateImageUseCase, translationImageUseCase, scaleImageUseCase):
         # Variables
         global imageView
         global root
+        self.rotateImageUseCase = rotateImageUseCase
+        self.translationImageUseCase = translationImageUseCase
+        self.scaleImageUseCase = scaleImageUseCase
 
         # Creating root
         root = tkinter.Tk()
@@ -56,12 +59,15 @@ class HomeLayout:
     def rotateImage(self):
         global value
         value = self.enterValueFloat()
+        self.rotateImageUseCase.execute()
 
     def translationImage(self):
         global value
         value = self.enterValueFloat()
+        self.translationImageUseCase.execute()
 
     def scaleImage(self):
         global value
         value = self.enterValueFloat()
+        self.scaleImageUseCase.execute()
 

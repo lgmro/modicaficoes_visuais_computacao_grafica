@@ -1,6 +1,18 @@
-import homeLayout
+from rotateImageUseCase import RotateImageUseCase
+from translationImageUseCase import TranslationImageUseCase
+from scaleImageUseCase import ScaleImageUseCase
+from homeLayout import HomeLayout
 
 def main():
-    homeLayout.HomeLayout()
+    # Dependencies
+    rotateImageUseCaseImpl = RotateImageUseCase()
+    translationImageUseCaseImpl = TranslationImageUseCase()
+    scaleImageUseCaseImpl = ScaleImageUseCase()
+
+    HomeLayout(
+        rotateImageUseCaseImpl, 
+        translationImageUseCaseImpl, 
+        scaleImageUseCaseImpl
+        )
     
 main()
