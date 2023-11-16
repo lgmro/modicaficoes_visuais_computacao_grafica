@@ -79,20 +79,20 @@ class HomeLayout:
         print(im.size)
         print(type(im.size))
 
-        weight, height = im.size
-        print('width: ', weight)
-        print('height:', height)
+        self.weight, self.height = im.size
+        print('width: ', self.weight)
+        print('height:', self.height)
 
-        if weight > 600:
-            weight = 600
-        if height > 500:
-            height = 500
+        if self.weight > 600:
+            self.weight = 600
+        if self.height > 500:
+            self.height = 500
 
-        self.image = customtkinter.CTkImage(Image.open(os.path.join(self.img_path)), size=(weight, height))
+        self.image = customtkinter.CTkImage(Image.open(os.path.join(self.img_path)), size=(self.weight, self.height))
         self.image_label = customtkinter.CTkLabel(root, text="", image=self.image)
         self.image_label.grid(row=0, column=1, padx=(20, 0), pady=(20, 0))
 
-        self.image_modify = customtkinter.CTkImage(Image.open(os.path.join(self.img_path)), size=(weight, height))
+        self.image_modify = customtkinter.CTkImage(Image.open(os.path.join(self.img_path)), size=(self.weight, self.height))
         self.image_modify_label = customtkinter.CTkLabel(root, text="", image=self.image_modify)
         self.image_modify_label.grid(row=0, column=2, padx=(20, 0), pady=(20, 0))
 
@@ -100,7 +100,10 @@ class HomeLayout:
         self.button_translation.configure(state="enable", text="Translação")
 
     def save(self):
-        pass
+        location = filedialog.asksaveasfilename(defaultextension=".png")
+        print(f"Location to save: {location}")
+        image = ImageTk.getimage(self.image_modify._get_scaled_light_photo_image(scaled_size=(self.weight, self.height)))
+        image.save(os.path.join(location))
 
     def open_input_dialog_event(self):
         return customtkinter.CTkInputDialog(text="Type in a number:", title="Value").get_input()
