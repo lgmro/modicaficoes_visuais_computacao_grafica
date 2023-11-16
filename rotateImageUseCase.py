@@ -1,3 +1,5 @@
 class RotateImageUseCase:
-    def execute(self):
-        print("Do something")
+    def execute(self, image, value):
+        newImage = image
+        print("Do something", value)
+        return newImage
