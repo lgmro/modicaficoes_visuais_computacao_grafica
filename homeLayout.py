@@ -5,12 +5,13 @@ from tkinter import filedialog
 from tkinter import simpledialog
 
 class HomeLayout:
-    def __init__(self, rotateImageUseCase, translationImageUseCase, scaleImageUseCase):
+    def __init__(self, rotateImageUseCase, translationImageUseCase, scaleImageUseCase, brightnessUseCase):
         # Variables
         global root
         self.rotateImageUseCase = rotateImageUseCase
         self.translationImageUseCase = translationImageUseCase
         self.scaleImageUseCase = scaleImageUseCase
+        self.brightnessUseCase = brightnessUseCase
         self.img_path = ""
 
         # Creating root
@@ -32,14 +33,24 @@ class HomeLayout:
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
 
         # Buttons
-        self.button_open_image = customtkinter.CTkButton(self.sidebar_frame, command=self.openImage, text="Abrir Imagem")
-        self.button_open_image.grid(row=1, column=0, padx=20, pady=10)
-
         self.button_rotate = customtkinter.CTkButton(self.sidebar_frame, text="Rotacionar", command=self.rotateImage)
-        self.button_rotate.grid(row=2, column=0, padx=20, pady=10)
+        self.button_rotate.grid(row=1, column=0, padx=20, pady=10)
 
         self.button_translation = customtkinter.CTkButton(self.sidebar_frame, text="Translação", command=self.translationImage)
-        self.button_translation.grid(row=3, column=0, padx=20, pady=10)
+        self.button_translation.grid(row=2, column=0, padx=20, pady=10)
+
+        self.button_bright = customtkinter.CTkButton(self.sidebar_frame, text="Brilho", command=self.brightnessImage)
+        self.button_bright.grid(row=3, column=0, padx=20, pady=10)
+
+        self.button_open_image = customtkinter.CTkButton(self.sidebar_frame, command=self.openImage, text="Abrir Imagem")
+        self.button_open_image.grid(row=4, column=0, padx=20, pady=10)
+
+
+
+        self.progressbar_1 = customtkinter.CTkProgressBar(master=root)
+        self.progressbar_1.grid(row=3, column=2, padx=(20, 10), pady=(10, 10), sticky="ew")
+        self.slider_1 = customtkinter.CTkSlider(master=root, from_=0, to=1, number_of_steps=4)
+        self.slider_1.grid(row=3, column=1, padx=(20, 10), pady=(10, 10), sticky="ew")
 
         self.button_save = customtkinter.CTkButton(master=root, fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"), text="Salvar", command=self.save)
         self.button_save.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
@@ -47,6 +58,7 @@ class HomeLayout:
         # set default values  
         self.button_rotate.configure(state="disabled", text="Rotacionar")
         self.button_translation.configure(state="disabled", text="Translação") 
+        self.button_bright.configure(state="disabled", text="Brilho") 
 
         # Settings of app
         self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Aparência:", anchor="w")
@@ -62,8 +74,9 @@ class HomeLayout:
         self.scaling_optionemenu.grid(row=8, column=0, padx=20, pady=(10, 20))
 
         # create main entry 
-        self.entry = customtkinter.CTkEntry(root, placeholder_text="Salvar")
-        self.entry.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
+        # self.entry = customtkinter.CTkEntry(root, placeholder_text="Salvar")
+        # self.entry.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
+        
 
         root.mainloop()
 
@@ -79,25 +92,26 @@ class HomeLayout:
         print(im.size)
         print(type(im.size))
 
-        weight, height = im.size
-        print('width: ', weight)
-        print('height:', height)
+        self.weight, self.height = im.size
+        print('width: ', self.weight)
+        print('height:', self.height)
 
-        if weight > 600:
-            weight = 600
-        if height > 500:
-            height = 500
-
-        self.image = customtkinter.CTkImage(Image.open(os.path.join(self.img_path)), size=(weight, height))
+        if self.weight > 600:
+            self.weight = 600
+        if self.height > 500:
+            self.height = 500
+        
+        self.image = customtkinter.CTkImage(Image.open(os.path.join(self.img_path)), size=(self.weight, self.height))
         self.image_label = customtkinter.CTkLabel(root, text="", image=self.image)
         self.image_label.grid(row=0, column=1, padx=(20, 0), pady=(20, 0))
 
-        self.image_modify = customtkinter.CTkImage(Image.open(os.path.join(self.img_path)), size=(weight, height))
+        self.image_modify = customtkinter.CTkImage(Image.open(os.path.join(self.img_path)), size=(self.weight, self.height))
         self.image_modify_label = customtkinter.CTkLabel(root, text="", image=self.image_modify)
         self.image_modify_label.grid(row=0, column=2, padx=(20, 0), pady=(20, 0))
 
         self.button_rotate.configure(state="enable", text="Rotacionar")
         self.button_translation.configure(state="enable", text="Translação")
+        self.button_bright.configure(state="enable", text="Brilho")
 
     def save(self):
         pass
@@ -129,4 +143,15 @@ class HomeLayout:
         value = self.open_input_dialog_event()
         image = self.scaleImageUseCase.execute(self.image_modify, value)
         self.image_modify_label.configure(image = image)
+
+    def brightnessImage(self):
+        global value
+        value = self.open_input_dialog_event()
+        image = self.brightnessUseCase.execute(self.img_path, value) #
+        
+        self.image_modify = customtkinter.CTkImage(image, size=(self.weight, self.height))
+        self.image_modify_label = customtkinter.CTkLabel(root, text="", image=self.image_modify)
+        self.image_modify_label.grid(row=0, column=2, padx=(20, 0), pady=(20, 0))
+
+        #self.image_modify_label.configure(image = image)
 
