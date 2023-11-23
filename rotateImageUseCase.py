@@ -1,5 +1,4 @@
 class RotateImageUseCase:
-    def execute(self, image, value):
-        newImage = image
-        print("Do something", value)
-        return newImage
+    async def execute(self, image, value):
+        print("Angle to rotate", value)
+        return image.rotate(value, expand=True)
