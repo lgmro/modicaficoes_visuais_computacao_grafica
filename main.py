@@ -10,13 +10,13 @@ def main():
     rotateImageUseCaseImpl = RotateImageUseCase()
     translationImageUseCaseImpl = TranslationImageUseCase()
     scaleImageUseCaseImpl = ScaleImageUseCase()
-    BrightnessUseCaseImpl = BrightnessUseCase()
+    brightnessUseCaseImpl = BrightnessUseCase()
 
     home_view_model = HomeViewModel(
         rotateImageUseCaseImpl,
         translationImageUseCaseImpl,
         scaleImageUseCaseImpl,
-        BrightnessUseCaseImpl
+        brightnessUseCaseImpl
     )
 
     HomeLayout(home_view_model)

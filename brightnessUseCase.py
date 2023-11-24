@@ -5,5 +5,4 @@ class BrightnessUseCase:
         print("Brilho: ", value)
         image = ImageEnhance.Brightness(image)
         image = image.enhance(value)
-        
         return image
