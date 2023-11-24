@@ -1,9 +1,18 @@
 import os
 from PIL import Image
 from event import post_event, post_event_async
+from rotateImageUseCase import RotateImageUseCase
+from translationImageUseCase import TranslationImageUseCase
+from scaleImageUseCase import ScaleImageUseCase
+from brightnessUseCase import BrightnessUseCase
 
 class HomeViewModel:
-    def __init__(self, rotate_image_use_case, translation_image_use_case, scale_image_use_case, brighten_image_use_case):
+    def __init__(
+            self, rotate_image_use_case: RotateImageUseCase, 
+            translation_image_use_case: TranslationImageUseCase, 
+            scale_image_use_case: ScaleImageUseCase, 
+            brighten_image_use_case: BrightnessUseCase
+            ):
         self.rotate_image_use_case = rotate_image_use_case 
         self.translation_image_use_case = translation_image_use_case 
         self.scale_image_use_case = scale_image_use_case
@@ -22,7 +31,7 @@ class HomeViewModel:
     async def update_input_from_dialog(self, value):
         self.input_from_dialog = value
     
-    async def save_image_on_locatin(self):
+    async def save_image_on_location(self):
         self.image_modified.save(os.path.join(self.location_save_image))
     
     async def first_load_image_on_labels(self):

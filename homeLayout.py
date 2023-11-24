@@ -3,10 +3,11 @@ import os
 from tkinter import filedialog
 import platform
 import asyncio
-from event import post_event, subscribe
+from event import subscribe
+from homeViewModel import HomeViewModel
 
 class HomeLayout:
-    def __init__(self, home_view_model):
+    def __init__(self, home_view_model: HomeViewModel):
         print(platform.system())
         print(os.path.expanduser('~'))
 
@@ -140,7 +141,7 @@ class HomeLayout:
         location = filedialog.asksaveasfilename(defaultextension=".png")
 
         await self.view_model.update_location_save_image(location)
-        await self.view_model.save_image_on_locatin()
+        await self.view_model.save_image_on_location()
 
         print(f"Image saved on: {location}")
 
