@@ -1,9 +1,9 @@
-from rotateImageUseCase import RotateImageUseCase
-from translationImageUseCase import TranslationImageUseCase
-from scaleImageUseCase import ScaleImageUseCase
-from brightnessUseCase import BrightnessUseCase
-from homeLayout import HomeLayout
-from homeViewModel import HomeViewModel
+from domain.rotateImageUseCase import RotateImageUseCase
+from domain.translationImageUseCase import TranslationImageUseCase
+from domain.scaleImageUseCase import ScaleImageUseCase
+from domain.brightnessUseCase import BrightnessUseCase
+from presenter.homeLayout import HomeLayout
+from presenter.homeViewModel import HomeViewModel
 
 def main():
     # Dependencies

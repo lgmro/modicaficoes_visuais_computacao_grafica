@@ -3,8 +3,8 @@ import os
 from tkinter import filedialog
 import platform
 import asyncio
-from event import subscribe
-from homeViewModel import HomeViewModel
+from presenter.utils.event import subscribe
+from presenter.homeViewModel import HomeViewModel
 
 class HomeLayout:
     def __init__(self, home_view_model: HomeViewModel):
