@@ -80,7 +80,7 @@ class HomeLayout:
         self.button_translation.configure(state="disabled", text="Translação")
         self.button_scale.configure(state="disabled", text="Escala")
         self.button_bright.configure(state="disabled", text="Brilho")
- 
+
     def create_settings_app(self):
         self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Aparência:", anchor="w")
         self.appearance_mode_label.grid(row=7, column=0, padx=20, pady=(10, 0))

@@ -57,4 +57,4 @@ class HomeViewModel:
     async def brighten_image(self):
         await post_event_async("get_input_from_dialog")
         self.image_modified = await self.brighten_image_use_case.execute(self.image_modified, int(self.input_from_dialog))
-        post_event("update_image_transformed_label", self.image_modified)  
+        post_event("update_image_transformed_label", self.image_modified)
