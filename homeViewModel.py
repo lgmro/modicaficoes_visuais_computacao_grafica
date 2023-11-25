@@ -37,11 +37,10 @@ class HomeViewModel:
     async def first_load_image_on_labels(self):
         self.image_modified = Image.open(os.path.join(self.image_path))
         post_event("update_image_transformed_label", self.image_modified)
-        post_event("update_image_original_label", self.image_modified)
+        # post_event("update_image_original_label", self.image_modified)
     
-    async def rotate_image(self):
-        await post_event_async("get_input_from_dialog")
-        self.image_modified = await self.rotate_image_use_case.execute(self.image_modified, float(self.input_from_dialog))
+    async def rotate_image(self, value):
+        self.image_modified = await self.rotate_image_use_case.execute(self.image_modified, value)
         post_event("update_image_transformed_label", self.image_modified)
     
     async def translation_image(self): 
@@ -54,7 +53,6 @@ class HomeViewModel:
         self.image_modified = self.scale_image_use_case.execute(self.image_modified, float(self.input_from_dialog))
         post_event("update_image_transformed_label", self.image_modified)
 
-    async def brighten_image(self):
-        await post_event_async("get_input_from_dialog")
-        self.image_modified = await self.brighten_image_use_case.execute(self.image_modified, int(self.input_from_dialog))
+    async def brighten_image(self, value):
+        self.image_modified = await self.brighten_image_use_case.execute(self.image_modified, value)
         post_event("update_image_transformed_label", self.image_modified)

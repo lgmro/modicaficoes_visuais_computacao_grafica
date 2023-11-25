@@ -16,6 +16,7 @@ class HomeLayout:
         self.view_model = home_view_model
         self.weight = 600
         self.height = 500
+        self.get_slider_value = 0
 
         # Creating root
         root = customtkinter.CTk()
@@ -45,8 +46,9 @@ class HomeLayout:
 
     def subscribe_events(self):
         subscribe("update_image_transformed_label", self.update_image_modify_on_label)
-        subscribe("update_image_original_label", self.update_image_original_on_label)
+        # subscribe("update_image_original_label", self.update_image_original_on_label)
         subscribe("get_input_from_dialog", self.open_input_dialog_event)
+        subscribe("get_input_from_slide", self.return_slide_value)
 
     def create_sidebar(self):
         self.sidebar_frame = customtkinter.CTkFrame(root, width=140, corner_radius=0)
@@ -60,7 +62,7 @@ class HomeLayout:
         self.button_open_image = customtkinter.CTkButton(self.sidebar_frame, command=lambda: asyncio.run(self.open_image()), text="Abrir Imagem")
         self.button_open_image.grid(row=1, column=0, padx=20, pady=10)
 
-        self.button_rotate = customtkinter.CTkButton(self.sidebar_frame, text="Rotacionar", command=lambda: asyncio.run(self.view_model.rotate_image()))
+        self.button_rotate = customtkinter.CTkButton(self.sidebar_frame, text="Rotacionar", command=lambda: asyncio.run(self.view_model.rotate_image(self.slide_rotate())))
         self.button_rotate.grid(row=2, column=0, padx=20, pady=10)
 
         self.button_translation = customtkinter.CTkButton(self.sidebar_frame, text="Translação", command=lambda: asyncio.run(self.view_model.translation_image()))
@@ -69,17 +71,34 @@ class HomeLayout:
         self.button_scale = customtkinter.CTkButton(self.sidebar_frame, text="Escala", command=lambda: asyncio.run(self.view_model.scale_image()))
         self.button_scale.grid(row=4, column=0, padx=20, pady=10)
 
-        self.button_bright = customtkinter.CTkButton(self.sidebar_frame, text="Brilho", command=lambda: asyncio.run(self.view_model.brighten_image()))
+        self.button_bright = customtkinter.CTkButton(self.sidebar_frame, text="Brilho", command=lambda: asyncio.run(self.view_model.brighten_image(self.get_slider_value)))
         self.button_bright.grid(row=5, column=0, padx=20, pady=10)
+
+        self.button_reset = customtkinter.CTkButton(master=root, fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"), text="voltar", command=lambda: asyncio.run(self.reset_image()))
+        self.button_reset.grid(row=3, column=2, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
         self.button_save = customtkinter.CTkButton(master=root, fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"), text="Salvar", command=lambda: asyncio.run(self.save_image()))
         self.button_save.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
+
+        self.slider_1 = customtkinter.CTkSlider(master=root, from_=0, to=10, number_of_steps=10, command=self.slider_value)
+        self.slider_1.grid(row=3, column=1, padx=(20, 10), pady=(10, 10), sticky="ew")
 
         # set default values
         self.button_rotate.configure(state="disabled", text="Rotacionar")
         self.button_translation.configure(state="disabled", text="Translação")
         self.button_scale.configure(state="disabled", text="Escala")
         self.button_bright.configure(state="disabled", text="Brilho")
+
+    def slide_rotate(self):
+        self.slider_1.configure(from_=-360, to=360, number_of_steps=24)
+        return self.get_slider_value
+
+    def return_slide_value(self):
+        return self.get_slider_value
+
+    def slider_value(self, value):
+        self.get_slider_value = int(value)
+        print(value)
 
     def create_settings_app(self):
         self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Aparência:", anchor="w")
@@ -95,11 +114,13 @@ class HomeLayout:
         self.scaling_optionemenu.grid(row=10, column=0, padx=20, pady=(10, 20))
 
     def create_labels_to_display_images(self):
-        self.image_original_label = customtkinter.CTkLabel(root, text="")
-        self.image_original_label.grid(row=0, column=1, padx=(20, 0), pady=(20, 0))
+        # self.image_original_label = customtkinter.CTkLabel(root, text="")
+        # self.image_original_label.grid(row=0, column=1, padx=(20, 0), pady=(20, 0))
 
         self.image_modify_label = customtkinter.CTkLabel(root, text="")
-        self.image_modify_label.grid(row=0, column=2, padx=(20, 0), pady=(20, 0))
+        self.image_modify_label.grid(row=0, column=1, columnspan = 2, padx=(20, 0), pady=(20, 0))
+
+        # columnspan = 2
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
         customtkinter.set_appearance_mode(new_appearance_mode)
@@ -133,9 +154,10 @@ class HomeLayout:
         image = customtkinter.CTkImage(image_update, size=(self.weight, self.height))
         self.image_modify_label.configure(image = image)
 
-    def update_image_original_on_label(self, image_update):
-        image = customtkinter.CTkImage(image_update, size=(self.weight, self.height))
-        self.image_original_label.configure(image=image)
+
+    # def update_image_original_on_label(self, image_update):
+    #     image = customtkinter.CTkImage(image_update, size=(self.weight, self.height))
+    #     self.image_original_label.configure(image=image)
 
     async def save_image(self):
         location = filedialog.asksaveasfilename(defaultextension=".png")
