@@ -70,7 +70,7 @@ class HomeLayout:
         self.button_scale = customtkinter.CTkButton(self.sidebar_frame, text="Escala", command=lambda: asyncio.run(self.view_model.scale_image()))
         self.button_scale.grid(row=4, column=0, padx=20, pady=10)
 
-        self.button_bright = customtkinter.CTkButton(self.sidebar_frame, text="Brilho", command=lambda: asyncio.run(self.view_model.brighten_image(self.get_slider_value)))
+        self.button_bright = customtkinter.CTkButton(self.sidebar_frame, text="Brilho", command=lambda: asyncio.run(self.view_model.brighten_image(self.slide_brighten())))
         self.button_bright.grid(row=5, column=0, padx=20, pady=10)
 
         # self.button_reset = customtkinter.CTkButton(master=root, fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"), text="voltar", command=lambda: asyncio.run(self.reset_image()))
@@ -78,9 +78,6 @@ class HomeLayout:
 
         self.button_save = customtkinter.CTkButton(master=root, fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"), text="Salvar", command=lambda: asyncio.run(self.save_image()))
         self.button_save.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
-
-        # self.slider_1 = customtkinter.CTkSlider(master=root, from_=0, to=10, number_of_steps=10, command=self.slide_event)
-        # self.slider_1.grid(row=3, column=1, padx=(20, 10), pady=(10, 10), sticky="ew")
 
         self.lable_slide = customtkinter.CTkLabel(master=root, text="0", width=120, height=25, fg_color=("black"), text_color=("white"))
         self.lable_slide.grid(row=3, column=2, padx=20, pady=10)
@@ -91,16 +88,20 @@ class HomeLayout:
         self.button_scale.configure(state="disabled")
         self.button_bright.configure(state="disabled")
 
+    def slide_event(self, value):
+        self.get_slider_value = int(value)
+        self.lable_slide.configure(text=self.get_slider_value)
+        print(value)
 
     def slide_rotate(self):
         self.slider_1 = customtkinter.CTkSlider(master=root, from_=-270, to=360, number_of_steps=8, command=self.slide_event)
         self.slider_1.grid(row=3, column=1, padx=(20, 10), pady=(10, 10), sticky="ew")
         return self.get_slider_value
-
-    def slide_event(self, value):
-        self.get_slider_value = int(value)
-        self.lable_slide.configure(text=self.get_slider_value)
-        print(value)
+    
+    def slide_brighten(self):
+        self.slider_1 = customtkinter.CTkSlider(master=root, from_=1, to=50, number_of_steps=30, command=self.slide_event)
+        self.slider_1.grid(row=3, column=1, padx=(20, 10), pady=(10, 10), sticky="ew")
+        return self.get_slider_value
 
     def create_settings_app(self):
         self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Aparência:", anchor="w")
