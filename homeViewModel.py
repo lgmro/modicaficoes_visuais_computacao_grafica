@@ -18,6 +18,7 @@ class HomeViewModel:
         self.scale_image_use_case = scale_image_use_case
         self.brighten_image_use_case = brighten_image_use_case
         self.image_modified = None
+        self.image_default = None
         self.image_path = ""
         self.location_save_image = ""
         self.input_from_dialog = ""
@@ -35,13 +36,16 @@ class HomeViewModel:
         self.image_modified.save(os.path.join(self.location_save_image))
     
     async def first_load_image_on_labels(self):
-        self.image_modified = Image.open(os.path.join(self.image_path))
+        self.image_default = Image.open(os.path.join(self.image_path))
+        self.image_modified = self.image_default
         post_event("update_image_transformed_label", self.image_modified)
-        post_event("update_image_original_label", self.image_modified)
     
-    async def rotate_image(self):
-        await post_event_async("get_input_from_dialog")
-        self.image_modified = await self.rotate_image_use_case.execute(self.image_modified, float(self.input_from_dialog))
+    async def reset_image_to_default(self):
+        self.image_modified = self.image_default
+        post_event("update_image_transformed_label", self.image_modified)
+    
+    async def rotate_image(self, value):
+        self.image_modified = await self.rotate_image_use_case.execute(self.image_modified, value)
         post_event("update_image_transformed_label", self.image_modified)
     
     async def translation_image(self): 
@@ -51,10 +55,9 @@ class HomeViewModel:
     
     async def scale_image(self):
         await post_event_async("get_input_from_dialog")
-        self.image_modified = self.scale_image_use_case.execute(self.image_modified, float(self.input_from_dialog))
+        self.image_modified = self.scale_image_use_case.execute(self.image_modified, int(self.input_from_dialog))
         post_event("update_image_transformed_label", self.image_modified)
 
-    async def brighten_image(self):
-        await post_event_async("get_input_from_dialog")
-        self.image_modified = await self.brighten_image_use_case.execute(self.image_modified, int(self.input_from_dialog))
+    async def brighten_image(self, value):
+        self.image_modified = await self.brighten_image_use_case.execute(self.image_modified, int(value))
         post_event("update_image_transformed_label", self.image_modified)
