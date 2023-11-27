@@ -3,8 +3,8 @@ import os
 from tkinter import filedialog
 import platform
 import asyncio
-from event import subscribe
-from homeViewModel import HomeViewModel
+from presenter.utils.event import subscribe
+from presenter.homeViewModel import HomeViewModel
 
 class HomeLayout:
     def __init__(self, home_view_model: HomeViewModel):
@@ -15,8 +15,7 @@ class HomeLayout:
         global root
         self.view_model = home_view_model
         self.weight = 600
-        self.height = 500
-        self.get_slider_value = 0
+        self.height = 500 
 
         # Creating root
         root = customtkinter.CTk()
