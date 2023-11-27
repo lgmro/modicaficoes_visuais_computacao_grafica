@@ -15,8 +15,7 @@ class HomeLayout:
         global root
         self.view_model = home_view_model
         self.weight = 600
-        self.height = 500
-        self.get_slider_value = 0
+        self.height = 500 
 
         # Creating root
         root = customtkinter.CTk()
