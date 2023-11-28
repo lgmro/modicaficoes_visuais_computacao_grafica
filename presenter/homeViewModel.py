@@ -65,7 +65,7 @@ class HomeViewModel:
         self.image_modified = await self.brighten_image_use_case.execute(self.image_modified, int(value))
         post_event("update_image_transformed_label", self.image_modified)
     
-    async def bluer_image(self):
+    async def blur_image(self):
         await post_event_async("get_input_from_dialog", "Informe o valor do radius")
         self.image_modified = self.blur_image_use_case.execute(self.image_modified, float(self.input_from_dialog))
         post_event("update_image_transformed_label", self.image_modified)

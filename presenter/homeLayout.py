@@ -74,7 +74,7 @@ class HomeLayout:
         self.button_scale = customtkinter.CTkButton(self.sidebar_frame, text="Escala", command=lambda: asyncio.run(self.view_model.scale_image()))
         self.button_scale.grid(row=3, column=0, padx=20, pady=10)
 
-        self.button_blur = customtkinter.CTkButton(self.sidebar_frame, text="Blur", command=lambda: asyncio.run(self.view_model.bluer_image()))
+        self.button_blur = customtkinter.CTkButton(self.sidebar_frame, text="Blur", command=lambda: asyncio.run(self.view_model.blur_image()))
         self.button_blur.grid(row=4, column=0, padx=20, pady=10)
 
         self.button_reset = customtkinter.CTkButton(master=self.sidebar_bottom_frame, fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"), text="Resetar", command=lambda: asyncio.run(self.view_model.reset_image_to_default()))
