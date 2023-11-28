@@ -87,6 +87,8 @@ class HomeLayout:
         self.button_translation.configure(state="disabled")
         self.button_scale.configure(state="disabled")
         self.button_blur.configure(state="disabled")
+        self.button_reset.configure(state="disabled")
+        self.button_save.configure(state="disabled")
 
     def slide_event_brightness(self, value):
         asyncio.run(self.view_model.brighten_image(value))
@@ -168,6 +170,8 @@ class HomeLayout:
         self.button_translation.configure(state="enable")
         self.button_scale.configure(state="enable")
         self.button_blur.configure(state="enable")
+        self.button_reset.configure(state="enable")
+        self.button_save.configure(state="enable")
         self.slider_brightness.configure(state="normal")
         self.slider_rotate.configure(state="normal")
 
