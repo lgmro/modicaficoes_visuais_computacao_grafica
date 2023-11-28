@@ -98,8 +98,7 @@ class HomeLayout:
     
     def slide_event_rotate(self, value):
         asyncio.run(self.view_model.rotate_image(value))
-        self.label_rotate_value.configure(text=int(value))
-        print(value)
+        self.label_rotate_value.configure(text=int(value)) 
 
     def create_slide_rotate(self):
         self.label_slide_name_rotate = customtkinter.CTkLabel(master=self.sidebar_bottom_frame, text="Rotação", width=60, height=25, text_color=("white"))
