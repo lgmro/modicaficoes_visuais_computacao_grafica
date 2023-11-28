@@ -39,9 +39,16 @@ class HomeViewModel:
         self.image_modified.save(os.path.join(self.location_save_image))
     
     async def first_load_image_on_labels(self):
-        self.image_default = Image.open(os.path.join(self.image_path))
-        self.image_modified = self.image_default
-        post_event("update_image_transformed_label", self.image_modified)
+        try:
+            self.image_default = Image.open(os.path.join(self.image_path))
+            self.image_modified = self.image_default
+            post_event("update_image_transformed_label", self.image_modified)
+        except TypeError:
+            print("Any image selected.")
+        except IOError:
+            print("Your file is not a image.")
+        except:
+            print("Unexpected error.")
     
     async def reset_image_to_default(self):
         self.image_modified = self.image_default
