@@ -42,17 +42,17 @@
 #### 1 - Executando o programa, você verá a página inicial: 
 
 <div align = "center">
-    <img src= "https://github.com/lgmro/modificacoes_visuais_computacao_grafica/assets/84135761/9334eaed-72b2-4e2d-b199-417adbbc60c0" width = "800px"/>
+    <img src= "https://github.com/lgmro/modificacoes_visuais_computacao_grafica/assets/84135761/ce76cf6e-e0f5-42c2-a931-f2b57323551b" width = "800px"/>
 </div>
 
 #### 2 - No botão "Abrir Imagem", você pode selecionar uma imagem do seu computador para realizar as modificações visuais: 
 
 <div align = "center">
-    <img src= "https://github.com/lgmro/modificacoes_visuais_computacao_grafica/assets/84135761/0b459d70-16f4-4d41-97b3-ba49ea866080" width = "800px"/>
+    <img src= "https://github.com/lgmro/modificacoes_visuais_computacao_grafica/assets/84135761/1a899064-7a28-4db4-99b3-a5df616884b7" width = "800px"/>
 </div>
 
 <div align = "center">
-    <img src= "https://github.com/lgmro/modificacoes_visuais_computacao_grafica/assets/84135761/e788dee6-173a-49e0-845e-020b8de1323e" width = "800px"/>
+    <img src= "https://github.com/lgmro/modificacoes_visuais_computacao_grafica/assets/84135761/6b1a6359-c20f-4b23-8c12-55ceb295e16f" width = "800px"/>
 </div>
 
 #### 3 - Você pode efetuar rotação e brilho alterando os sliders abaixo da imagem. E escala e translação clicando nos respectivos botões. Você também pode efetuar transformações compostas, ou seja, rotacionar e aplicar um brilho na imagem rotacionada, por exemplo. 

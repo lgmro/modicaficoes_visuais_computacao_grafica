@@ -1,6 +1,6 @@
 from PIL import ImageEnhance
 
-class BrightnessUseCase:
+class BrightnessImageUseCase:
     async def execute(self, image, value):
         if value > 0:
             print("Brilho: ", value)
