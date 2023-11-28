@@ -158,7 +158,7 @@ class HomeLayout:
         img_path = filedialog.askopenfilename(
             initialdir=start,
             title="Select a image",
-            filetypes=(('PNG files', '*.png'), ("jpeg files", "*.jpeg"), ("all files", "*.*"))
+            filetypes=(('PNG files', '*.png'), ("jpeg files", "*.jpeg"), ('JPG files', '*.jpg'), ('JPEG files', '*.jpeg'), ("all files", "*.*"))
         )
 
         await self.view_model.update_path(img_path)
