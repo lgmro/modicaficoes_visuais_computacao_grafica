@@ -6,6 +6,7 @@ from domain.translationImageUseCase import TranslationImageUseCase
 from domain.scaleImageUseCase import ScaleImageUseCase
 from domain.brightnessImageUseCase import BrightnessImageUseCase
 from domain.blurImageUseCase import BlurImageUseCase
+from presenter.utils.logger import Logger
 
 class HomeViewModel:
     def __init__(
@@ -13,13 +14,15 @@ class HomeViewModel:
             translation_image_use_case: TranslationImageUseCase, 
             scale_image_use_case: ScaleImageUseCase, 
             brighten_image_use_case: BrightnessImageUseCase,
-            blur_image_use_case: BlurImageUseCase
+            blur_image_use_case: BlurImageUseCase,
+            logger: Logger
             ):
         self.rotate_image_use_case = rotate_image_use_case 
         self.translation_image_use_case = translation_image_use_case 
         self.scale_image_use_case = scale_image_use_case
         self.brighten_image_use_case = brighten_image_use_case
         self.blur_image_use_case = blur_image_use_case
+        self.logger = logger
         self.image_modified = None
         self.image_default = None
         self.image_path = ""
@@ -28,6 +31,7 @@ class HomeViewModel:
     
     async def update_path(self, value):
         self.image_path = value
+        self.logger.info(f"Update image path variable: {self.image_path}")
     
     async def update_location_save_image(self, value):
         self.location_save_image = value
@@ -44,11 +48,11 @@ class HomeViewModel:
             self.image_modified = self.image_default
             post_event("update_image_transformed_label", self.image_modified)
         except TypeError:
-            print("Any image selected.")
+            self.logger.info("Any image selected.")
         except IOError:
-            print("Your file is not a image.")
+            self.logger.info("Your file is not a image.")
         except:
-            print("Unexpected error.")
+            self.logger.info("Unexpected error.")
     
     async def reset_image_to_default(self):
         self.image_modified = self.image_default
@@ -60,7 +64,7 @@ class HomeViewModel:
     
     async def translation_image(self): 
         await post_event_async("get_input_from_dialog", "Informe valor para a translação")
-        self.image_modified = self.translation_image_use_case.execute(self.image_modified, float(self.input_from_dialoge))
+        self.image_modified = self.translation_image_use_case.execute(self.image_modified, float(self.input_from_dialog))
         post_event("update_image_transformed_label", self.image_modified)
     
     async def scale_image(self):

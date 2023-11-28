@@ -4,18 +4,20 @@ from tkinter import filedialog
 import platform
 import asyncio
 from presenter.utils.event import subscribe
+from presenter.utils.logger import Logger
 from presenter.homeViewModel import HomeViewModel
 
 class HomeLayout:
-    def __init__(self, home_view_model: HomeViewModel):
-        print(platform.system())
-        print(os.path.expanduser('~'))
-
+    def __init__(self, home_view_model: HomeViewModel, logger: Logger):
         # Variables
         global root
         self.view_model = home_view_model
+        self.logger = logger
         self.weight = 600
         self.height = 500 
+
+        # System information
+        self.logger.info(f"System: {platform.system()}")
 
         # Creating root
         root = customtkinter.CTk()
@@ -153,7 +155,7 @@ class HomeLayout:
 
     async def open_image(self):
         start = os.path.expanduser('~') + "/Pictures"
-        print(start)
+        self.logger.info(f"Location dialog opened: {start}")
 
         img_path = filedialog.askopenfilename(
             initialdir=start,
