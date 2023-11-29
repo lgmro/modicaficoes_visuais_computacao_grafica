@@ -141,7 +141,7 @@ class HomeLayout:
     def change_appearance_mode_event(self, new_appearance_mode: str):
         customtkinter.set_appearance_mode(new_appearance_mode)
 
-    def change_scaling_event(self, new_scaling: str):
+    def change_scaling_event(self, new_scaling: float):
         new_scaling_float = int(new_scaling.replace("%", "")) / 100
         customtkinter.set_widget_scaling(new_scaling_float)
 
