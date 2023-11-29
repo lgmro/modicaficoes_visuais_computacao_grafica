@@ -1,12 +1,12 @@
 # Modificações Visuais - Computação Gráfica
 
 ## Integrantes:
-#### Enzo Matos Oliveira;
-#### Lucas Gabriel Maciel Marinho;
-#### Luís Carlos Santos Melo de Jesus;
-#### Manoel Felipe Costa Almeida Fernandes;
-#### Marina Fernandes Porto Leite;
-#### Vinicius dos Santos Souza
+#### [Enzo Oliveira](https://github.com/enzomatos01);
+#### [Lucas Marinho](https://github.com/lgmro);
+#### [Luis Carlos](https://github.com/Luis1988xp);
+#### [Manoel Fernandes](https://github.com/manofern);
+#### [Marina Leite](https://github.com/marileite96);
+#### [Vinicius Souza](https://github.com/vssouza-59).
 
 ## Requisitos para instalação:
 #### É necessário ter o Python 3 instalado.
@@ -18,9 +18,13 @@
     pip install customtkinter;
     pip install pillow;
     pip install packaging;
+    pip install opencv-python;
+    pip install numpy;
     pip3 install customtkinter (Ubuntu);
     pip3 install pillow (Ubuntu);
     pip3 install packagin (Ubuntu);
+    pip3 install opencv-python (Ubuntu);
+    pip3 install numpy (Ubuntu);
 
 #### Caso você queira visualizar melhor o código, será necessário uma IDE, recomendamos usar o Visual Studio Code;
 
