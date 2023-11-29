@@ -19,7 +19,7 @@ class HomeLayout:
 
         # Creating root
         root = customtkinter.CTk()
-        root.geometry(f"{1300}x{580}")
+        root.geometry(f"{1300}x{800}")
         root.title("Modificações Visuais em Imagem")
 
         # configure grid layout (4x4)
@@ -74,6 +74,9 @@ class HomeLayout:
         self.button_scale = customtkinter.CTkButton(self.sidebar_frame, text="Escala", command=lambda: asyncio.run(self.view_model.scale_image()))
         self.button_scale.grid(row=3, column=0, padx=20, pady=10)
 
+        self.button_blur = customtkinter.CTkButton(self.sidebar_frame, text="Blur", command=lambda: asyncio.run(self.view_model.blur_image()))
+        self.button_blur.grid(row=4, column=0, padx=20, pady=10)
+
         self.button_reset = customtkinter.CTkButton(master=self.sidebar_bottom_frame, fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"), text="Resetar", command=lambda: asyncio.run(self.view_model.reset_image_to_default()))
         self.button_reset.grid(row=1, column=6, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
@@ -83,6 +86,9 @@ class HomeLayout:
         # set default values
         self.button_translation.configure(state="disabled")
         self.button_scale.configure(state="disabled")
+        self.button_blur.configure(state="disabled")
+        self.button_reset.configure(state="disabled")
+        self.button_save.configure(state="disabled")
 
     def slide_event_brightness(self, value):
         asyncio.run(self.view_model.brighten_image(value))
@@ -161,8 +167,11 @@ class HomeLayout:
         self.enable_buttons_sliders()
 
     def enable_buttons_sliders(self):
-        self.button_translation.configure(state="enable", text="Translação")
-        self.button_scale.configure(state="enable", text="Escala")
+        self.button_translation.configure(state="enable")
+        self.button_scale.configure(state="enable")
+        self.button_blur.configure(state="enable")
+        self.button_reset.configure(state="enable")
+        self.button_save.configure(state="enable")
         self.slider_brightness.configure(state="normal")
         self.slider_rotate.configure(state="normal")
 
@@ -179,5 +188,5 @@ class HomeLayout:
 
         print(f"Image saved on: {location}")
 
-    async def open_input_dialog_event(self):
-        await self.view_model.update_input_from_dialog(customtkinter.CTkInputDialog(text="Type in a number:", title="Value").get_input()) 
+    async def open_input_dialog_event(self, text_dialog_input):
+        await self.view_model.update_input_from_dialog(customtkinter.CTkInputDialog(text=text_dialog_input, title="").get_input()) 
