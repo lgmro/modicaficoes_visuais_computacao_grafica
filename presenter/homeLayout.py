@@ -4,18 +4,22 @@ from tkinter import filedialog
 import platform
 import asyncio
 from presenter.utils.event import subscribe
+from presenter.utils.logger import Logger
 from presenter.homeViewModel import HomeViewModel
 
 class HomeLayout:
-    def __init__(self, home_view_model: HomeViewModel):
-        print(platform.system())
-        print(os.path.expanduser('~'))
-
+    def __init__(self, home_view_model: HomeViewModel, logger: Logger):
         # Variables
         global root
         self.view_model = home_view_model
+        self.logger = logger
+
+        # Default size to show image
         self.max_width_label = 800
         self.max_height_label = 700
+
+        # System information
+        self.logger.info(f"System: {platform.system()}")
 
         # Creating root
         root = customtkinter.CTk()
@@ -96,8 +100,7 @@ class HomeLayout:
     
     def slide_event_rotate(self, value):
         asyncio.run(self.view_model.rotate_image(value))
-        self.label_rotate_value.configure(text=int(value))
-        print(value)
+        self.label_rotate_value.configure(text=int(value)) 
 
     def create_slide_rotate(self):
         self.label_slide_name_rotate = customtkinter.CTkLabel(master=self.sidebar_bottom_frame, text="Rotação", width=60, height=25, text_color=("white"))
@@ -156,12 +159,12 @@ class HomeLayout:
 
     async def open_image(self):
         start = os.path.expanduser('~') + "/Pictures"
-        print(start)
+        self.logger.info(f"Location dialog opened: {start}")
 
         img_path = filedialog.askopenfilename(
             initialdir=start,
             title="Select a image",
-            filetypes=(('PNG files', '*.png'), ("jpeg files", "*.jpeg"), ("all files", "*.*"))
+            filetypes=(('PNG files', '*.png'), ("jpeg files", "*.jpeg"), ('JPG files', '*.jpg'), ('JPEG files', '*.jpeg'), ("all files", "*.*"))
         )
 
         await self.view_model.update_path(img_path)
@@ -197,8 +200,9 @@ class HomeLayout:
 
         await self.view_model.update_location_save_image(location)
         await self.view_model.save_image_on_location()
-
-        print(f"Image saved on: {location}")
+        
+        if location:
+            self.logger.info(f"Image saved on: {location}")
 
     async def open_input_dialog_event(self, text_dialog_input):
         await self.view_model.update_input_from_dialog(customtkinter.CTkInputDialog(text=text_dialog_input, title="").get_input()) 
