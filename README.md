@@ -1,12 +1,12 @@
 # Modificações Visuais - Computação Gráfica
 
 ## Integrantes:
-#### [Enzo Oliveira](https://github.com/enzomatos01);
-#### [Lucas Marinho](https://github.com/lgmro);
-#### [Luis Carlos](https://github.com/Luis1988xp);
-#### [Manoel Fernandes](https://github.com/manofern);
-#### [Marina Leite](https://github.com/marileite96);
-#### [Vinicius Souza](https://github.com/vssouza-59).
+#### [Enzo Oliveira](https://github.com/enzomatos01) - RA: 1272022638;
+#### [Lucas Marinho](https://github.com/lgmro) - RA: 1272115763;
+#### [Luis Carlos](https://github.com/Luis1988xp) - RA: 1272122545;
+#### [Manoel Fernandes](https://github.com/manofern) - RA: 12720110473;
+#### [Marina Leite](https://github.com/marileite96) - RA: 1272121593;
+#### [Vinicius Souza](https://github.com/vssouza-59) - RA: 1271825174.
 
 ## Requisitos para instalação:
 #### É necessário ter o Python 3 instalado.
