@@ -185,8 +185,9 @@ class HomeLayout:
 
         await self.view_model.update_location_save_image(location)
         await self.view_model.save_image_on_location()
-
-        print(f"Image saved on: {location}")
+        
+        if location:
+            self.logger.info(f"Image saved on: {location}")
 
     async def open_input_dialog_event(self, text_dialog_input):
         await self.view_model.update_input_from_dialog(customtkinter.CTkInputDialog(text=text_dialog_input, title="").get_input()) 

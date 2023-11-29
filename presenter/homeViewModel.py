@@ -35,12 +35,18 @@ class HomeViewModel:
     
     async def update_location_save_image(self, value):
         self.location_save_image = value
+        self.logger.info(f"Update location to save image: {self.location_save_image}")
     
     async def update_input_from_dialog(self, value):
         self.input_from_dialog = value
     
     async def save_image_on_location(self):
-        self.image_modified.save(os.path.join(self.location_save_image))
+        try:
+            self.image_modified.save(os.path.join(self.location_save_image))
+        except ValueError:
+            self.logger.info("Save operation canceled.")
+        except:
+            self.logger.info("Unexpected error.")
     
     async def first_load_image_on_labels(self):
         try:
