@@ -69,8 +69,12 @@ class HomeViewModel:
         post_event("update_image_transformed_label", self.image_modified)
     
     async def translation_image(self): 
-        await post_event_async("get_input_from_dialog", "Informe valor para a translação")
-        self.image_modified = self.translation_image_use_case.execute(self.image_modified, float(self.input_from_dialog))
+        await post_event_async("get_input_from_dialog", "Informe valor para a translação no eixo X")
+        value_axle_x = self.input_from_dialog
+        await post_event_async("get_input_from_dialog", "Informe valor para a translação no eixo Y")
+        value_axle_y = self.input_from_dialog
+        
+        self.image_modified = self.translation_image_use_case.execute(self.image_modified, float(value_axle_x), float(value_axle_y))
         post_event("update_image_transformed_label", self.image_modified)
     
     async def scale_image(self):
