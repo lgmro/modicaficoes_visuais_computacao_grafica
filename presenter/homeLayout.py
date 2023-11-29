@@ -14,7 +14,7 @@ class HomeLayout:
         # Variables
         global root
         self.view_model = home_view_model
-        self.weight = 600
+        self.width = 600
         self.height = 500 
 
         # Creating root
@@ -167,7 +167,8 @@ class HomeLayout:
         self.slider_rotate.configure(state="normal")
 
     def update_image_modify_on_label(self, image_update):
-        image = customtkinter.CTkImage(image_update, size=(self.weight, self.height))
+        width, height = image_update.size
+        image = customtkinter.CTkImage(image_update, size=(width, height))
         self.image_modify_label.configure(image = image)
 
     async def save_image(self):
