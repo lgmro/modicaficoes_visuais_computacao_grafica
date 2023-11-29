@@ -13,15 +13,17 @@ class HomeLayout:
         global root
         self.view_model = home_view_model
         self.logger = logger
-        self.weight = 600
-        self.height = 500 
+
+        # Default size to show image
+        self.max_width_label = 800
+        self.max_height_label = 700
 
         # System information
         self.logger.info(f"System: {platform.system()}")
 
         # Creating root
         root = customtkinter.CTk()
-        root.geometry(f"{1300}x{800}")
+        root.geometry(f"{1300}x{1000}")
         root.title("Modificações Visuais em Imagem")
 
         # configure grid layout (4x4)
@@ -142,6 +144,9 @@ class HomeLayout:
         self.scaling_optionemenu.grid(row=10, column=0, padx=20, pady=(10, 20))
 
     def create_label_to_display_image(self):
+        self.text_label_warning = customtkinter.CTkLabel(root, text="")
+        self.text_label_warning.grid(row=1, column=1, padx=(20, 0), pady=(20, 0))
+
         self.image_modify_label = customtkinter.CTkLabel(root, text="")
         self.image_modify_label.grid(row=0, column=1, columnspan = 2, padx=(20, 0), pady=(20, 0))
 
@@ -177,7 +182,17 @@ class HomeLayout:
         self.slider_rotate.configure(state="normal")
 
     def update_image_modify_on_label(self, image_update):
-        image = customtkinter.CTkImage(image_update, size=(self.weight, self.height))
+        width, height = image_update.size
+        widthProgram = width
+        heightProgram = height
+        if (width > self.max_width_label or height > self.max_height_label):
+            widthProgram = self.max_width_label
+            heightProgram = self.max_height_label
+            self.text_label_warning.configure(text=f"Width: {width}, Height: {height}. Imagem muito grande. Caso efetue uma escala, será necessário salvar a imagem para visualizar a alteração.")
+        else:
+            self.text_label_warning.configure(text=f"Width: {width}, Height: {height}.")
+            
+        image = customtkinter.CTkImage(image_update, size=(widthProgram, heightProgram))
         self.image_modify_label.configure(image = image)
 
     async def save_image(self):

@@ -78,7 +78,9 @@ class HomeViewModel:
         post_event("update_image_transformed_label", self.image_modified)
     
     async def scale_image(self):
-        await post_event_async("get_input_from_dialog", "Informe valor para a escala")
+        await post_event_async("get_input_from_dialog", 
+                               "Informe um valor para a escala.\nValores abaixo de 100 diminuem a imagem.\nValores maiores que 100 aumentam a imagem."
+                               )
         self.image_modified = self.scale_image_use_case.execute(self.image_modified, int(self.input_from_dialog))
         post_event("update_image_transformed_label", self.image_modified)
 
