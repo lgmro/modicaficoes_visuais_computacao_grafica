@@ -180,12 +180,16 @@ class HomeLayout:
 
     def update_image_modify_on_label(self, image_update):
         width, height = image_update.size
+        widthProgram = width
+        heightProgram = height
         if (width > self.max_width_label or height > self.max_height_label):
-            width = self.max_width_label
-            height = self.max_height_label
-            self.text_label_warning.configure(text="Imagem muito grande. Caso efetue uma escala, será necessário salvar a imagem para visualizar a alteração.")
-
-        image = customtkinter.CTkImage(image_update, size=(width, height))
+            widthProgram = self.max_width_label
+            heightProgram = self.max_height_label
+            self.text_label_warning.configure(text=f"Width: {width}, Height: {height}. Imagem muito grande. Caso efetue uma escala, será necessário salvar a imagem para visualizar a alteração.")
+        else:
+            self.text_label_warning.configure(text=f"Width: {width}, Height: {height}.")
+            
+        image = customtkinter.CTkImage(image_update, size=(widthProgram, heightProgram))
         self.image_modify_label.configure(image = image)
 
     async def save_image(self):
