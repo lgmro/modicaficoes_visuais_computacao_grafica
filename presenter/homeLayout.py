@@ -14,12 +14,12 @@ class HomeLayout:
         # Variables
         global root
         self.view_model = home_view_model
-        self.width = 600
-        self.height = 500 
+        self.max_width_label = 800
+        self.max_height_label = 700
 
         # Creating root
         root = customtkinter.CTk()
-        root.geometry(f"{1300}x{800}")
+        root.geometry(f"{1300}x{1000}")
         root.title("Modificações Visuais em Imagem")
 
         # configure grid layout (4x4)
@@ -141,6 +141,9 @@ class HomeLayout:
         self.scaling_optionemenu.grid(row=10, column=0, padx=20, pady=(10, 20))
 
     def create_label_to_display_image(self):
+        self.text_label_warning = customtkinter.CTkLabel(root, text="")
+        self.text_label_warning.grid(row=1, column=1, padx=(20, 0), pady=(20, 0))
+
         self.image_modify_label = customtkinter.CTkLabel(root, text="")
         self.image_modify_label.grid(row=0, column=1, columnspan = 2, padx=(20, 0), pady=(20, 0))
 
@@ -177,6 +180,11 @@ class HomeLayout:
 
     def update_image_modify_on_label(self, image_update):
         width, height = image_update.size
+        if (width > self.max_width_label or height > self.max_height_label):
+            width = self.max_width_label
+            height = self.max_height_label
+            self.text_label_warning.configure(text="Imagem muito grande. Caso efetue uma escala, será necessário salvar a imagem para visualizar a alteração.")
+
         image = customtkinter.CTkImage(image_update, size=(width, height))
         self.image_modify_label.configure(image = image)
 
