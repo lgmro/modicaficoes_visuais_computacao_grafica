@@ -6,6 +6,10 @@ class ScaleImageUseCase:
         self.logger = logger
 
     def execute(self, image, value):
+        if (value < 0):
+            self.logger.info(f"Don't use negative value: {value}")
+            return image
+        
         original_image = image
         width, height = image.size
         self.logger.info(f'The original size of image is: Width: {width} x Height: {height}')
