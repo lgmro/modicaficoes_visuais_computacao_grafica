@@ -11,5 +11,5 @@ class ScaleImageUseCase:
         scaled_image = original_image.resize(new_size, PIL.Image.LANCZOS)
         width, height = scaled_image.size
         print(f'O tamanho da imagem após a mudança de escala é: {width}x{height}')
-        print("Redimensionado para: ", value)
+        print(f'Redimensionado para: {value}%')
         return scaled_image
